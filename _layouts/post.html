@@ -22,11 +22,23 @@ script_includes:
     {% endif %}
 
     <div class="post-meta text-muted">
-      <!-- published date -->
-      <span>
-        {{ site.data.locales[lang].post.posted }}
-        {% include datetime.html date=page.date tooltip=true lang=lang %}
-      </span>
+      <!-- project timeline: Timeline: start - end -->
+      {% if page.start or page.end %}
+        <span>
+          <strong>Project Timeline:</strong>
+          {% if page.start %}{{ page.start }}{% endif %}
+          {% if page.start and page.end %} – {% endif %}
+          {% if page.end %}{{ page.end }}{% endif %}
+        </span>
+      {% else %}
+        <span>
+          {{ site.data.locales[lang].post.posted }}
+          {% include datetime.html date=page.date tooltip=true lang=lang %}
+        </span>
+      {% endif %}
+
+
+
 
       <!-- lastmod date -->
       {% if page.last_modified_at and page.last_modified_at != page.date %}

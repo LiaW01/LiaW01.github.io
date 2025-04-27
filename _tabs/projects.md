@@ -18,7 +18,7 @@ order: 1
   max-width: 800px;
   padding: 20px;
 }
-
+/* original card setting
 .card {
   display: flex;
   flex-direction: column;
@@ -32,14 +32,34 @@ order: 1
   color: inherit;
 }
 
+
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
+*/
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg); /* ✅ use CSS variable */
+  border: 1px solid var(--main-border-color); /* ✅ use dark/light dynamic color */
+  border-radius: 16px;
+  box-shadow: var(--card-shadow); /* ✅ use dynamic shadow */
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  color: var(--text-color); /* ✅ use dynamic text color */
+}
+
+.card:hover {
+  background: var(--card-hovor-bg); /* ✅ slightly lighter background on hover */
+}
+
 
 .card img {
   width: 100%;
-  height: 180px;
+  height: 240px;
   object-fit: cover;
 }
 
@@ -91,13 +111,16 @@ order: 1
 }
 </style>
 
-{% assign project1 = site.posts | where: "title", "GTA Analytics" | first %}
-{% assign project2 = site.posts | where: "title", "Test2" | first %}
+
+{% assign project1 = site.posts | where: "title", "Optimizing Blackjack Strategies with Reinforcement Learning" | first %}
+{% assign project2 = site.posts | where: "title", "Probability of Default Prediction for Banca Massiccia" | first %}
+{% assign project3 = site.posts | where: "title", "Identifying Anomalous Transactions" | first %}
+
 
 <div class="cards-container">
   <div class="cards">
 
-    <!-- Project 1: GTA Analytics -->
+    <!-- Project 1: Optimizing Blackjack Strategies with Reinforcement Learning -->
     <a class="card" href="{{ project1.url }}">
       <img src="{{ project1.cover }}" alt="{{ project1.title }}">
       <div class="card-content">
@@ -117,7 +140,7 @@ order: 1
       </div>
     </a>
 
-    <!-- Project 2: Test2 -->
+    <!-- Project 2: Probability of Default Prediction for Banca Massiccia -->
     <a class="card" href="{{ project2.url }}">
       <img src="{{ project2.cover }}" alt="{{ project2.title }}">
       <div class="card-content">
@@ -133,6 +156,26 @@ order: 1
         </div>
         {% if project2.repo %}
           <a class="btn" href="{{ project2.repo }}" target="_blank">GitHub Repo</a>
+        {% endif %}
+      </div>
+    </a>
+
+    <!-- Project 3: Identifying Anomalous Transactions -->
+    <a class="card" href="{{ project3.url }}">
+      <img src="{{ project3.cover }}" alt="{{ project3.title }}">
+      <div class="card-content">
+        <h3>{{ project3.title }}</h3>
+        <div class="meta">Category: {{ project3.category }}</div>
+        <p>{{ project3.excerpt | strip_html | truncate: 100 }}</p>
+        <div class="tags">
+          {% for tag in project3.tags %}
+            {% unless tag == "project" %}
+              <span class="tag">{{ tag }}</span>
+            {% endunless %}
+          {% endfor %}
+        </div>
+        {% if project3.repo %}
+          <a class="btn" href="{{ project3.repo }}" target="_blank">GitHub Repo</a>
         {% endif %}
       </div>
     </a>
